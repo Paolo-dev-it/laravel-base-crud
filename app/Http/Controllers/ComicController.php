@@ -40,8 +40,16 @@ class ComicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
     {
-        //
+        $data = $request->all();
+
+        $new_record = new Comic();
+        $new_record->fill($data);
+
+        $new_record->save();
+
+        return redirect()->route('comics.index', ['comic' => $new_record->id]);
     }
 
     /**
