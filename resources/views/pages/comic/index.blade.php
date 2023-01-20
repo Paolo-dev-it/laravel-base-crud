@@ -3,7 +3,11 @@
 @section('main-content')
     <div class=" bg-primary">
         <h1 class="text-center text-white">Trova il migliore per te</h1>
-        {{-- Tutti i record della tabella pasta --}}
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div>
             <a class="text-white container" href="{{ route('comics.create') }}">Crea dei fumetti</a>
         </div>
@@ -28,6 +32,26 @@
                             <div class="card-body">
                                 <a href="{{ route('comics.show', $elem->id) }}" class="card-link">see info</a>
                             </div>
+                            <div class="d-flex">
+                                <form action="{{ route('comics.destroy', $elem->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn" type="submit">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </form>
+
+                                <div>
+                                    <a href="{{ route('comics.edit', $elem->id) }}">
+                                        <button class="btn">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+
+                                    </a>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 @endforeach
